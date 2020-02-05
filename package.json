@@ -1,0 +1,17 @@
+{
+  "name": "Baggins_Api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "debug": "nodemon --inspect src/server"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "sucrase": "^3.12.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
