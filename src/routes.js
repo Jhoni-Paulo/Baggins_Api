@@ -1,5 +1,5 @@
-class Routes{
+import { Router } from 'express';
 
-}
+const routes = new Router();
 
-export default new Routes()
+export default routes;
