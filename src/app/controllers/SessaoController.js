@@ -1,36 +1,35 @@
 import jwt from 'jsonwebtoken'
-import { Pessoa } from '../models'
+import { SessaoBLL, PessoaBLL } from '../../bll'
 import authConfig from '../../config/auth'
 
 class SessaoController{
-    async post(req, res) {
-        
-        const {email, senha} = req.body
+  async post(req, res) {
 
-        const pessoa = await Pessoa.findOne({ where: { email }})
+    const {email, senha} = req.body
 
-        if(!pessoa) return res.status(400).json({ error: "Usuário não encontrado" })
+    try {
+      const pessoa = await PessoaBLL.buscarUsuario(email)
 
-        if(!senha || !(await pessoa.verificarSenha(senha))) return res.status(400).json({ error: "Senha inválida ou inexistente" })
+      if(!pessoa) return res.status(400).json({ error: "Usuário não encontrado" })
 
-        const { id, nome } = pessoa
+      if(!senha || !(await pessoa.verificarSenha(senha))) return res.status(400).json({ error: "Senha inválida ou inexistente" })
 
-        return res.json({
-            pessoa: {
-                id,
-                nome,
-                email
-            },
-            token: jwt.sign({ id }, authConfig.secret, {
-                expiresIn: authConfig.expiresIn
-            })
-        })
+      const { id, nome } = pessoa
+
+      return res.json({
+          pessoa: {
+              id,
+              nome,
+              email
+          },
+          token: jwt.sign({ id }, authConfig.secret, {
+              expiresIn: authConfig.expiresIn
+          })
+      })
+    } catch (error) {
+      return error
     }
-
-    async get(req, res){ 
-        SessaoBLL
-        res.json() 
-    }
+  }
 }
 
 export default new SessaoController()

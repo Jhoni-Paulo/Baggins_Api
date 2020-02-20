@@ -1,4 +1,4 @@
-class PessoaBLL{
+class SessaoBLL{
 
     AutenticarUsuario() {
         return true;
@@ -6,4 +6,4 @@ class PessoaBLL{
 
 }
 
-export default PessoaBLL
+export default new SessaoBLL()
