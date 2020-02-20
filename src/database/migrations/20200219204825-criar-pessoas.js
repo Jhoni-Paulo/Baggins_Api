@@ -21,13 +21,23 @@ module.exports = {
         idTipoPessoa: {
           type: Sequelize.INTEGER ,
           allowNull: false,
+          defaultValue: 0
         },
         idContato: {
           type: Sequelize.INTEGER ,
           allowNull: false,
+          defaultValue: 0
         },
         senhaHash: {
           type: Sequelize.STRING ,
+          allowNull: false,
+        },
+        createdAt: {
+          type: Sequelize.DATE,
+          allowNull: false,
+        },
+        updatedAt: {
+          type: Sequelize.DATE,
           allowNull: false,
         }
       });
