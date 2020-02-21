@@ -1,35 +1,23 @@
-import jwt from 'jsonwebtoken'
-import { SessaoBLL, PessoaBLL } from '../../bll'
-import authConfig from '../../config/auth'
+import * as Yup from 'yup'
+import { SessaoBLL } from '../../bll'
 
 class SessaoController{
-  async post(req, res) {
+  
+  async post(req, res) {    
+    const schema = Yup.object().shape({
+      email: Yup.string().email().required(),
+      senha: Yup.string().required().min(6)
+    })
 
     const {email, senha} = req.body
-
     try {
-      const pessoa = await PessoaBLL.buscarUsuario(email)
+      if(!(await schema.isValid(req.body))) throw await schema.validate(req.body).catch(err => err.errors)
+        
+      return res.json(await SessaoBLL.autenticarUsuario(email, senha))
+    } catch (error) { return res.status(400).json({ error }) }
 
-      if(!pessoa) return res.status(400).json({ error: "Usuário não encontrado" })
-
-      if(!senha || !(await pessoa.verificarSenha(senha))) return res.status(400).json({ error: "Senha inválida ou inexistente" })
-
-      const { id, nome } = pessoa
-
-      return res.json({
-          pessoa: {
-              id,
-              nome,
-              email
-          },
-          token: jwt.sign({ id }, authConfig.secret, {
-              expiresIn: authConfig.expiresIn
-          })
-      })
-    } catch (error) {
-      return error
-    }
   }
+
 }
 
 export default new SessaoController()
