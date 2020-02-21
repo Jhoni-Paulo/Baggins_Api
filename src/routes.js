@@ -10,5 +10,6 @@ routes.post('/sessao', SessaoController.post);
 routes.use(authMiddleware)
 
 routes.put('/pessoas', PessoaController.put)
+routes.delete('/pessoas', PessoaController.delete)
 
 export default routes;

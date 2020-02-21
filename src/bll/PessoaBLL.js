@@ -25,26 +25,36 @@ class PessoaBLL{
     }
   }
 
-  async atualizarUsuario(usuario){
-    const { usuarioId, nome, email, senha, senhaAntiga } = usuario
+  async atualizarUsuario(usuario, usuarioId){
     try {
       const pessoa = await PessoaDAL.buscarUsuarioPorId(usuarioId)
 
       if(!pessoa) throw "Usuário não encontrado!"
 
-      if(senhaAntiga && !SessaoBLL._verificarSenha(senhaAntiga, pessoa.senhaHash))
+      if(usuario.senhaAntiga && !SessaoBLL._verificarSenha(usuario.senhaAntiga, pessoa.senhaHash))
         throw status(401).json({ error : "Senha inválida" })
-      
-      if(email) pessoa.email = email
-      if(nome) pessoa.nome = nome
-      if(senha) pessoa.senha = senha
-
-      return await PessoaDAL.atualizarUsuario(pessoa)
+           
+      return await PessoaDAL.atualizarUsuario(usuario, pessoa)
 
     } catch (error) {
       throw error
     }
   }
+
+  async deletarUsuario(usuarioId){
+    try {
+      const pessoa = await PessoaDAL.buscarUsuarioPorId(usuarioId)
+
+      if(!pessoa) throw "Usuário não encontrado!"
+      
+      await PessoaDAL.deletarUsuario(usuarioId, pessoa)
+      return pessoa.email
+
+    } catch (error) {
+      throw error
+    }
+  }
+
 }
 
 export default new PessoaBLL()

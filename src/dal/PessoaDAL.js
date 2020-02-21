@@ -20,10 +20,16 @@ class PessoaDAL{
     } catch (error) { throw error }
   }
 
-  async atualizarUsuario(pessoa) {      
+  async atualizarUsuario(usuario, _contextDb) {
       try {
-        return await Pessoa.update(pessoa)
+        return await _contextDb.update(usuario)
       } catch (error) { throw error }
+  }
+
+  async deletarUsuario(usuarioId, _contextDb) {
+    try {      
+      return await _contextDb.destroy({ where: { id : usuarioId } })
+    } catch (error) { throw error }
   }
 
 }
