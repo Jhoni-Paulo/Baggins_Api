@@ -2,14 +2,14 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-      return queryInterface.createTable('Pessoas', { 
+      return queryInterface.createTable('People', { 
         id: {
           type: Sequelize.INTEGER ,
           allowNull: false,
           autoIncrement: true,
           primaryKey: true
         },
-        nome: {
+        name: {
           type: Sequelize.STRING ,
           allowNull: false,
         },
@@ -18,17 +18,17 @@ module.exports = {
           allowNull: false,
           unique: true
         },
-        idTipoPessoa: {
+        idPersonType: {
           type: Sequelize.INTEGER ,
           allowNull: false,
           defaultValue: 0
         },
-        idContato: {
+        idContact: {
           type: Sequelize.INTEGER ,
           allowNull: false,
           defaultValue: 0
         },
-        senhaHash: {
+        passwordHash: {
           type: Sequelize.STRING ,
           allowNull: false,
         },
@@ -44,6 +44,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-      return queryInterface.dropTable('Pessoas');
+      return queryInterface.dropTable('People');
   }
 };

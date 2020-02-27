@@ -1,4 +1,5 @@
-import SessaoController from "./SessaoController";
-import PessoaController from "./PessoaController";
+import SessionController from "./SessionController";
+import PersonController from "./PersonController";
+import FileController from "./FileController";
 
-export { SessaoController, PessoaController }
+export { SessionController, PersonController, FileController }

@@ -1,4 +1,5 @@
-import SessaoBLL from "./SessaoBLL";
-import PessoaBLL from "./PessoaBLL";
+import SessionBLL from "./SessionBLL";
+import PersonBLL from "./PersonBLL";
+import FileBLL from "./FileBLL";
 
-export { SessaoBLL, PessoaBLL }
+export { SessionBLL, PersonBLL, FileBLL }

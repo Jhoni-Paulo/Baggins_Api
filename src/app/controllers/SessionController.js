@@ -1,23 +1,23 @@
 import * as Yup from 'yup'
-import { SessaoBLL } from '../../bll'
+import { SessionBLL } from '../../bll'
 
-class SessaoController{
+class SessionController{
   
   async post(req, res) {    
     const schema = Yup.object().shape({
       email: Yup.string().email().required(),
-      senha: Yup.string().required().min(6)
+      password: Yup.string().required().min(6)
     })
 
-    const {email, senha} = req.body
+    const {email, password} = req.body
     try {
       if(!(await schema.isValid(req.body))) throw await schema.validate(req.body).catch(err => err.errors)
         
-      return res.json(await SessaoBLL.autenticarUsuario(email, senha))
+      return res.json(await SessionBLL.userAuthenticate(email, password))
     } catch (error) { return res.status(400).json({ error }) }
 
   }
 
 }
 
-export default new SessaoController()
+export default new SessionController()

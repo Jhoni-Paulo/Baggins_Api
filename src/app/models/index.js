@@ -1,3 +1,4 @@
-import Pessoa from './Pessoas'
+import Person from './Person'
+import File from './File'
 
-export { Pessoa }
+export { Person, File }

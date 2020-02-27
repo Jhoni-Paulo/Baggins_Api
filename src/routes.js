@@ -1,15 +1,23 @@
 import { Router } from 'express';
-import { PessoaController, SessaoController } from './app/controllers';
+
+import multer from 'multer'
+import multerConfig from './config/multer'
+
+import { PersonController, SessionController, FileController } from './app/controllers';
+
 import authMiddleware from './app/middlewares/auth'
 
 const routes = new Router();
+const upload = multer(multerConfig)
 
-routes.post('/pessoas', PessoaController.post);
-routes.post('/sessao', SessaoController.post);
+routes.post('/people', PersonController.post);
+routes.post('/session', SessionController.post);
 
 routes.use(authMiddleware)
 
-routes.put('/pessoas', PessoaController.put)
-routes.delete('/pessoas', PessoaController.delete)
+routes.put('/people', PersonController.put)
+routes.delete('/people', PersonController.delete)
+
+routes.post('/files', upload.single('file'), FileController.post)
 
 export default routes;

@@ -12,8 +12,8 @@ export default async (req, res, next) => {
   const [, token] = authHeader.split(' ')
 
   try {
-    const descript = await promisify(jwt.verify)(token, authConfig.secret)
-    req.usuarioId = descript.id
+    const decrypt = await promisify(jwt.verify)(token, authConfig.secret)
+    req.userId = decrypt.id
    return next()
   } catch (error) {
     res.status(401).json( {error: 'Token inválido!'} )
